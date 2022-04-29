@@ -1,21 +1,11 @@
 <div class="mt-8 md:mt-14 w-full max-w-[600px] flex flex-col items-center">
   <div role="tablist" class="tabs w-full justify-between" data-el="tabs">
     <a
-      id="link-install-flyio"
+      id="link-install-docker"
       class="tab active"
       href="#"
       role="tab"
-      aria-controls="install-flyio"
       aria-selected="true"
-      data-tab-target="#install-flyio"
-    >
-      Using Fly.io
-    </a>
-    <a
-      id="link-install-docker"
-      class="tab"
-      href="#"
-      role="tab"
       aria-controls="install-docker"
       data-tab-target="#install-docker"
       >Using Docker</a
@@ -34,40 +24,13 @@
     <img src="/images/window_buttons.png" alt="" width="36" height="8" />
     <!-- Tab contents -->
 
-    <!-- * Fly.io instructions -->
-    <div
-      id="install-flyio"
-      role="tabpanel"
-      aria-labelledby="link-install-flyio"
-      data-el="tab-content"
-      data-tab-active
-      class="my-12 flex flex-col items-center justify-center"
-    >
-      <a
-        class="
-          px-5
-          py-3
-          flex
-          space-x-3
-          items-center
-          rounded-xl
-          bg-[#8b5cf6]
-          hover:bg-[#7c3aed]
-          text-white
-        "
-        href="https://fly.io/launch/livebook"
-      >
-        <img src="/images/flyio_logo_white.svg" alt="" width="32" height="27" />
-        <span class="font-semibold -mb-0.5">Launch on Fly</span>
-      </a>
-    </div>
-
     <!-- * Docker instructions -->
     <div
       id="install-docker"
       role="tabpanel"
       aria-labelledby="link-install-docker"
       data-el="tab-content"
+      data-tab-active
       class="mt-6 flex flex-col space-y-6"
     >
       <!-- Step -->
@@ -89,7 +52,16 @@
         <!-- prettier-ignore -->
         {{> code
               id="docker-run-livebook"
-              code="docker run -p 8080:8080 --pull always livebook/livebook"
+              code="docker run --rm \
+    -e DATABASE_URL=[DB_URL] \
+    -e PGHOST=[PGHOST] \
+    -e PGPORT=5432 \
+    -e PGUSER=postgres \
+    -e PGPASSWORD=postgres \
+    -e PGDATABASE=livesup \
+    -p 8080:8080 \
+    --pull always \
+    livesup:edge"
               isShell=true
             }}
       </div>
@@ -112,7 +84,7 @@
             href="https://elixir-lang.org/install.html"
           >
             <img src="/images/elixir.svg" alt="" width="12" height="21" />
-            <span class="text-sm font-medium">Install Elixir</span>
+            <span class="text-sm font-medium">Install Elixir v1.13+</span>
           </a>
         </div>
       </div>
@@ -121,6 +93,11 @@
         <div class="text-gray-900 text-sm font-semibold">Step 2</div>
         <!-- prettier-ignore -->
         {{> code
+              id="elixir-install-local"
+              code="mix local.rebar --force && mix local.hex --force"
+              isShell=true
+            }}
+            {{> code
               id="elixir-install-livebook"
               code="mix escript.install hex livebook"
               isShell=true

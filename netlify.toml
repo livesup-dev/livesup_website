@@ -6,14 +6,6 @@
   pretty_urls = true
 
 [[headers]]
-  for = "/badge/*"
-
-  [headers.values]
-    # Enable CORS for badge images
-    Access-Control-Allow-Origin = "*"
-    Cache-Control = "public, max-age=604800"
-
-[[headers]]
   for = "/assets/*"
 
   [headers.values]

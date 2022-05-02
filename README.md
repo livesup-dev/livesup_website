@@ -1,6 +1,6 @@
-# Livebook website
+# Livesup website
 
-The landing page for [Livebook](https://github.com/livebook-dev/livebook).
+The landing page for [Livesup](https://github.com/livesup-dev/livesup).
 
 ## Development
 
